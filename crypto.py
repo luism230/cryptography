@@ -1,4 +1,6 @@
 import string
+import random
+import math
 # Caesar Cipher
 # Arguments: string, integer
 # Returns: string
@@ -72,12 +74,38 @@ def decrypt_vigenere(ciphertext, keyword):
 # Arguments: integer
 # Returns: tuple (W, Q, R) - W a length-n tuple of integers, Q and R both integers
 def generate_private_key(n=8):
-    pass
+    w = [1]
+
+    count = 1
+    total = w[0]
+    while count < n:
+        new = random.randint(total+1, 2*total)
+        w.append(new)
+        total += new
+        count+=1
+    W = tuple(w)
+    Q = random.randint(total+1, 2*total)
+
+    R = random.randint(2, Q-1)
+    while math.gcd(Q, R) != 1:
+        R = random.randint(2, Q-1)
+    return (W, Q, R)
+
 
 # Arguments: tuple (W, Q, R) - W a length-n tuple of integers, Q and R both integers
 # Returns: tuple B - a length-n tuple of integers
 def create_public_key(private_key):
-    pass
+    W = private_key[0]
+    Q = private_key[1]
+    R = private_key[2]
+
+    B = []
+    for i in W:
+        B.append((R*i)%Q)
+    B = tuple(B)
+
+    return B
+
 
 # Arguments: string, tuple (W, Q, R)
 # Returns: list of integers
@@ -181,7 +209,7 @@ def main():
         
 
 if __name__ == "__main__":
-    main()
+    generate_private_key()
 
     
 
