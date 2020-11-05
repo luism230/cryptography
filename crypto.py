@@ -150,7 +150,7 @@ def encrypt_mhkc(plaintext, public_key):
     for i in bits:
         C = 0
         for j in range(0,8):
-            C+=(int(i[j])*public_key[j])
+            C += int(i[j]) * public_key[j]
 
         encrypted.append(C)
     return encrypted
@@ -188,8 +188,7 @@ def decrypt_mhkc(ciphertext, private_key):
 
 def main():
     # Testing code here
-    
-
+    pass
 
 if __name__ == "__main__":
     main()
